@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" version="2.4">
+ <display-name>MVC JavaEE Architecture</display-name> 
+    <servlet> 
+        <servlet-name>json</servlet-name> 
+        <servlet-class>servlets.JSONServlet</servlet-class>
+    </servlet> 
+    <servlet> 
+        <servlet-name>allDept</servlet-name> 
+        <servlet-class>servlets.AllDeptServlet</servlet-class>
+    </servlet> 
+    <servlet> 
+        <servlet-name>empEtDept</servlet-name> 
+        <servlet-class>servlets.EmpDeptServlet</servlet-class>
+    </servlet> 
+
+    <servlet-mapping> 
+        <servlet-name>json</servlet-name> 
+        <url-pattern>/json_servlet</url-pattern> 
+    </servlet-mapping>
+    <servlet-mapping> 
+        <servlet-name>allDept</servlet-name> 
+        <url-pattern>/all_dept</url-pattern> 
+    </servlet-mapping> 
+    <servlet-mapping> 
+        <servlet-name>empEtDept</servlet-name> 
+        <url-pattern>/emp_dept</url-pattern> 
+    </servlet-mapping> 
+</web-app>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Techs</title>
+    <script src="xhrGet.js"></script>
+
+</head>
+<body>
+    <h1>Graphisme dynamique avec CHART.JS,AJAX avec JAVA(GSON.jar),POSTGRES</h1>
+    <script type="text/javascript">
+        window.addEventListener("load", function () {
+
+            receiveDataBackend();
+            
+            function receiveDataBackend() {
+                var xhr=getXhr(); 
+                    try {  xhr = new ActiveXObject('Msxml2.XMLHTTP');   }
+                    catch (e) 
+                    {
+                        try {   xhr = new ActiveXObject('Microsoft.XMLHTTP'); }
+                        catch (e2) 
+                        {
+                        try {  xhr = new XMLHttpRequest();  }
+                        catch (e3) {  xhr = false;   }
+                        }
+                    }
+                    xhr.onreadystatechange  = function() 
+                    { 
+                    if(xhr.readyState  == 4){
+                        if(xhr.status  == 200) {
+                            var temp = event.target.responseText;
+                            console.log(temp);
+                            var techs=JSON.parse(temp);
+                            if (techs!="error-db") {
+/******DEFINITION DU GRAPHISME Chart.js AVEC LES DONNEES JSON DE JDBC ORM ********************/
+                                var labelArray=new Array();
+                                var dataArray=new Array();
+                                for (var i = 0; i < techs.length; i++) {//tech==Donnees JSON
+                                    labelArray.push(techs[i].nom);
+                                    dataArray.push(techs[i].nbusers);                                 
+                                }
+                                console.log(labelArray); 
+                                // drawDiagram(techs);
+                                const chartBar=new Chart(canvasBar,{
+                                    type: "bar",
+                                    data: {
+                                        labels: labelArray,
+                                        datasets: [{
+                                            data: dataArray,
+                                            backgroundColor: [
+                                                "crimson",
+                                                "lightgreen",
+                                                "lightblue",
+                                                "violet",
+                                                "blue"
+                                            ],
+                                        }]
+                                    }
+                                })
+/*****************************************************************************************/
+                            }
+                            else{
+                                alert("Une erreur s'est produite");
+                            }
+                        }else{
+                            alert('Une erreur est survenue');
+                        }
+                    }
+                };
+                xhr.open("GET", "json_servlet");
+                xhr.send(null);
+            }
+            // sendDataToBackend();
+            //receiveDataBackend();
+        });
+    </script>
+    <div id="echo"></div>
+    <div class="chart-container">
+
+        <canvas id="canvasBar" aria-label="chart" role="img"></canvas>
+
+    </div>
+    <script src="chart.js"></script>
+    <script src="script2.jsp"></script>
+</body>
+</html>
